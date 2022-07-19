@@ -12,7 +12,18 @@ module.exports = function(app){
       });
         
         produtosDAO.lista((err, results) =>{
-            res.render("lista", {lista : results})
+            
+          res.format({
+            html: () => {
+              res.render("lista", {lista : results})
+            },
+            json: () => {
+              res.status(201).json({
+                lista: results
+              })
+            }
+          })
+          
           });
 
     
