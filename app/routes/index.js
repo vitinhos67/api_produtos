@@ -22,28 +22,25 @@ module.exports = function(app){
         res.render('form')
       })
 
-      app.post('/produtos/salva', function(req,res){
+      app.post('/produtos', function(req,res){
         const {titulo, descricao, preco} = req.body
         
+        const produto = {
+          titulo,
+          descricao,
+          preco
+        }
         var connection = app.infra.database;
         const produtosDAO = new app.infra.ProdutosDAO(connection)
 
-        const log = produtosDAO.salva(titulo, descricao, preco, (err, results) => {
+        produtosDAO.salva(produto, (err, results) => {
           if(err) {
             return res.status(401).json({
               err
             })
           }
-
-          res.status(201).json({
-            status: "Sucesso",
-            produto: {
-              titulo, descricao, preco
-            }
-          })
         })
-
-
+          res.redirect('/produtos')
       })
 
 
