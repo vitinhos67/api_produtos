@@ -19,7 +19,7 @@ const client = http.request(options, (res) => {
 })
 
 const produto = {
-    titulo: "PEQUENO PRINCIPE",
+    titulo: "",
     descricao: "um pequeno principew",
     valor: '50'
 }

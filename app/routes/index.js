@@ -51,8 +51,17 @@ module.exports = function(app){
         const erros = req.validationErrors();
 
         if(erros){
-          res.render('form',{errosValidacao : erros, produto});
-          return;
+          
+          res.format({
+            html: function() {
+              return res.status(401).render('form',{errosValidacao : erros, produto});
+              
+            },
+            json: function() {
+              return res.status(401).json(erros);
+            }
+          })
+          
       }
 
         produtosDAO.salva(produto, (err, results) => {
