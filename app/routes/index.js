@@ -30,7 +30,7 @@ module.exports = function(app){
     });
 
       app.get("/produtos/form", (req,res) => {
-        res.render('form')
+        res.render('form', { errosValidacao: {}, produto: {}})
       })
 
       app.post('/produtos', function(req,res){
@@ -43,6 +43,17 @@ module.exports = function(app){
         }
         var connection = app.infra.database;
         const produtosDAO = new app.infra.ProdutosDAO(connection)
+
+        req.assert('titulo', 'Titulo e obrigatorio.').notEmpty();
+        req.assert('preco','Formato inválido').isFloat();
+
+
+        const erros = req.validationErrors();
+
+        if(erros){
+          res.render('form',{errosValidacao : erros, produto});
+          return;
+      }
 
         produtosDAO.salva(produto, (err, results) => {
           if(err) {

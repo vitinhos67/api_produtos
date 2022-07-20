@@ -1,7 +1,6 @@
 const express = require('express');
-
-const load = require('express-load')
-
+const expressValidator = require('express-validator');
+const load = require('express-load');
 module.exports = function () {
    const app = express(); 
     
@@ -9,6 +8,7 @@ module.exports = function () {
     app.set('views','./app/views');
     app.use(express.json());
     app.use(express.urlencoded({extended:true}))
+    app.use(expressValidator())
     
 
 
