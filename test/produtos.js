@@ -1,5 +1,5 @@
 const http = require('http')
-
+const assert = require('assert')
 describe('ProdutosController', function() {
     it('#listagem json', function(done){
         
@@ -14,14 +14,9 @@ describe('ProdutosController', function() {
     
     http.get(options, (res) => {
         
-        if(res.statusCode > 200 || res.statusCode < 299) {
-            console.log(`statusCode: ${res.statusCode}`)
-        }
-        
-        if(res.headers['content-type'] == 'application/json; charset=utf-8'){
-            console.log(`Content-Type: ${res.headers['content-type']}`)
-        }
-        
+
+        assert.equal(res.statusCode, 201)
+        assert.equal(res.headers['content-type'], 'application/json; charset=utf-8')     
         done()
     })
 
