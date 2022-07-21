@@ -1,25 +1,16 @@
-const http = require('http')
-const assert = require('assert')
-describe('ProdutosController', function() {
+
+const express = require('../app/config/express')
+const app = express()
+const request = require('supertest')
+
+
+describe('GET /produtos', function() {
     it('#listagem json', function(done){
         
-    const options = {
-        hostname: 'localhost',
-        port: 3000,
-        path: '/produtos',
-        headers: {
-            'Accept': 'application/json'
-        }
-    }
-    
-    http.get(options, (res) => {
-        
-
-        assert.equal(res.statusCode, 201)
-        assert.equal(res.headers['content-type'], 'application/json; charset=utf-8')     
-        done()
-    })
-
-    
-    })
+        request(app)
+        .get('/produtos') //ROUTE IN APPLICATION
+        .set('Accept', "application/json") // SET CONFIG IN YOUR REQUEST
+        .expect('Content-Type', /json/) // EXPECTS TO RECEIVE 
+        .expect(201, done) // EXPECTS TO RECEIVE TOO
+})
 })
