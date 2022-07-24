@@ -19,9 +19,9 @@ const client = http.request(options, (res) => {
 })
 
 const produto = {
-    titulo: "",
+    titulo: "oioi",
     descricao: "um pequeno principew",
-    valor: '50'
+    preco: '50'
 }
 
 client.end(JSON.stringify(produto))

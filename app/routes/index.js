@@ -1,18 +1,15 @@
 module.exports = function(app){
   
-  app.get("/produtos", function(req, res) {
+  app.get("/produtos", function(req, res, next) {
       var connection = app.infra.database;
       const produtosDAO =  new app.infra.ProdutosDAO(connection);
-      
-      connection.connect(function(err) {
-        if (err) {
-          return console.error('error: ' + err.message);
-        }
-        console.log('Connected to the MySQL server.');
-      });
         
         produtosDAO.lista((err, results) =>{
-            
+
+          if(err) {
+            next(err)
+          }
+          
           res.format({
             html: () => {
               res.render("lista", {lista : results})
@@ -49,7 +46,6 @@ module.exports = function(app){
 
 
         const erros = req.validationErrors();
-
         if(erros){
           
           res.format({
@@ -71,7 +67,7 @@ module.exports = function(app){
             })
           }
         })
-          res.redirect('/produtos')
+          res.status(302).redirect('/produtos')
       })
 
 

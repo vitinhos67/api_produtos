@@ -3,7 +3,8 @@ const expressValidator = require('express-validator');
 const load = require('express-load');
 module.exports = function () {
    const app = express(); 
-    
+   
+   app.use(express.static('./app/public'));
    app.set('view engine', 'ejs');
     app.set('views','./app/views');
     app.use(express.json());
