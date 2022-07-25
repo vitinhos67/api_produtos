@@ -248,5 +248,21 @@
         </div>
     </div>
 </footer>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+    
+    socket.on('novaPromocao', (data) => {
+    console.log(data)
+        alert(`Livro em promoção : ${ data.livro.id }, não perca!`);
+
+    })
+</script>
+
+
+
+
 </body>
 </html>

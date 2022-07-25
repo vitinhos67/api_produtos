@@ -13,7 +13,9 @@ module.exports = function(app) {
     app.post("/promocoes", (req,res) => {
 
         const promocao = req.body;
-        console.log(promocao)
+    
+        app.get("io").emit('novaPromocao', promocao)
+        
         res.redirect("/promocoes/form");
     })
 

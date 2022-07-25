@@ -1,5 +1,10 @@
 var app = require('./app/config/express')();
+const http  = require('http').Server(app)
 
-app.listen(3000, function(){
+const io = require('socket.io')(http)
+
+app.set('io', io)
+
+http.listen(3000, function(){
     console.log("Servidor rodando");
 });
